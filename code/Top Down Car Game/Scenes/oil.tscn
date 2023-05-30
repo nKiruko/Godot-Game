@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/oil.png" type="Texture" id=2]
+[ext_resource path="res://Script/oil2.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31, 38.5 )
+
+[node name="oil" type="Area2D" groups=["truck"]]
+position = Vector2( 0, -100 )
+script = ExtResource( 3 )
+
+[node name="Oil" type="Sprite" parent="." groups=["truck"]]
+position = Vector2( 3, 53 )
+rotation = 3.14159
+scale = Vector2( 0.0808469, 0.0808469 )
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="." groups=["truck"]]
+position = Vector2( 2, 53.5 )
+shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": "TruckArea"
+}

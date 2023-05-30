@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/background-1.png" type="Texture" id=1]
+[ext_resource path="res://Script/Road.gd" type="Script" id=2]
+
+[node name="Road" type="ParallaxBackground"]
+scale = Vector2( 0.533, 0.919 )
+transform = Transform2D( 0.533, 0, 0, 0.919, 0, 0 )
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 423.799, 326.091 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

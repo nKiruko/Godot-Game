@@ -1,0 +1,68 @@
+extends Node2D
+
+onready var road = preload("res://Scenes/Road.tscn")
+onready var truck = preload("res://Scenes/ene_car.tscn")
+onready var oil = preload("res://Scenes/oil.tscn")
+onready var porsche = preload("res://Scenes/porsche.tscn")
+onready var person = preload("res://Scenes/person.tscn")
+
+var timer = 0
+var timer_truck = 50
+var timerGame = 0
+var timer_oil = 100
+var timer_porsche = 150
+var timer_person = 300
+var hitCount = 3
+onready var Lives = $Label
+onready var anim = $AnimationPlayer
+func _ready():
+	Lives.text = "Lives: " + str(hitCount)
+
+func _process(delta):
+	timerGame += 1
+	$TextureProgress.value += 1
+	timer -= 1
+	timer_truck -= 1
+	timer_oil -= 1
+	timer_porsche -= 1
+	timer_person -= 1
+	
+	if timer_truck < 0:
+		var truck_ins = truck.instance()
+		timer_truck = DynamicManager.time
+		add_child(truck_ins)
+
+	if timer < 0:
+		var road_ins = road.instance()
+		timer = 250
+		add_child(road_ins)
+		
+	if timer_oil < 0:
+		var oil_ins = oil.instance()
+		timer_oil =  DynamicManager.oilTime
+		add_child(oil_ins)
+		
+	if timerGame == 1000:
+		if timer_porsche < 0:
+			var porsche_ins = porsche.instance()
+			timer_porsche = DynamicManager.porscheTime
+			add_child(porsche_ins)
+	if timerGame == 1500:
+		if timer_person < 0:
+			var person_ins = person.instance()
+			timer_person = DynamicManager.personTime
+			add_child(person_ins)
+		
+	if timerGame == 3000:
+		get_tree().change_scene("res://Scenes/Complete4.tscn")
+
+func _on_player_area_entered(area):
+	if area.is_in_group("truck"):
+		hitCount -= 1
+		Lives.text = "Lives: " + str(hitCount)
+		anim.play("pain")
+		area.queue_free() 
+		if hitCount == 0:
+			get_tree().change_scene("res://Scenes/Game_Over2.tscn")
+
+		
